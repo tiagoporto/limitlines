@@ -29,15 +29,13 @@
     "limitlines.mjs"
   ],
   "scripts": {
+    "prepare": "husky",
     "checks": "npm run check-docs && npm run format:check && npm run lint",
     "check-docs": "remark --frail . --ext md,markdown,mdx",
     "format:check": "prettier --check --ignore-unknown \"**/*\"",
     "format": "npm run format:check -- --write",
     "lint": "eslint --max-warnings 0",
     "lint:fix": "npm run lint -- --write",
-    "tag": "git tag v$npm_package_version",
-    "postpublish": "npm run tag && git push --tags",
-    "prepare": "husky",
     "release": "semantic-release",
     "release:dry-run": "semantic-release --dry-run --debug"
   },
