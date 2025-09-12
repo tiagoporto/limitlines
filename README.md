@@ -101,4 +101,4 @@ limitlines --version
 
 ## License
 
-This project is licensed under the [MIT license](https://github.com/tiagoporto/limitlines/blob/main/LICENSE).
+Limitlines © 2018 by Tiago Porto is licensed under [MIT License](https://github.com/tiagoporto/limitlines/blob/main/LICENSE).
