@@ -29,14 +29,14 @@
     "limitlines.mjs"
   ],
   "scripts": {
-    "postinstall": "$CI = true || (dependabot-config && editor-config)",
+    "postinstall": "$CI = true || editor-config",
     "prepare": "husky",
     "checks": "npm run check-docs && npm run format:check && npm run lint",
     "check-docs": "remark --frail . --ext md,markdown,mdx",
     "format:check": "prettier --check --ignore-unknown \"**/*\"",
     "format": "npm run format:check -- --write",
     "lint": "eslint --max-warnings 0",
-    "lint:fix": "npm run lint -- --write",
+    "lint:fix": "npm run lint -- --fix",
     "release": "semantic-release",
     "release:dry-run": "semantic-release --dry-run --debug"
   },
@@ -49,7 +49,6 @@
   "devDependencies": {
     "@commitlint/cli": "^19.6.1",
     "@commitlint/config-conventional": "^19.6.0",
-    "@tiagoporto/dependabot-config": "^2.0.0",
     "@tiagoporto/editor-config": "^2.0.0",
     "@tiagoporto/eslint-config": "^2.6.0",
     "@tiagoporto/prettier-config": "^2.0.0",
