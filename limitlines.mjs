@@ -2,15 +2,16 @@
 import chalk from 'chalk'
 import { program } from 'commander'
 import countLinesInFile from 'count-lines-in-file'
-import fs from 'fs'
 import { globby } from 'globby'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
+import process from 'node:process'
 
 const jsonData = fs.readFileSync('./package.json', 'utf8')
 const { version } = JSON.parse(jsonData)
 
-const list = (val) => {
-  return val.replace(/\s/g, '').split(',')
+const list = (value) => {
+  return value.replaceAll(/\s/g, '').split(',')
 }
 
 const MAX_ERRORS = 0
@@ -33,30 +34,30 @@ program
   .option(
     '--maxlines <maxlines>',
     `Maximum lines by file. Default: ${MAX_LINES_BY_FILE}`,
-    parseInt,
+    Number.parseInt,
   )
   .option(
     '--minlines <minlines>',
     `Minimum lines by file. Default: ${MIN_LINES_BY_FILE}`,
-    parseInt,
+    Number.parseInt,
   )
   .option(
     '--maxerrors <maxerrors>',
     `Maximum errors accept. Default: ${MAX_ERRORS}`,
-    parseInt,
+    Number.parseInt,
   )
 
 program.parse(process.argv)
 
 const { maxerrors, maxlines, minlines, ignore } = program.opts()
-const maxErrors = maxerrors ? maxerrors : MAX_ERRORS
-const maxLinesByFile = maxlines ? maxlines : MAX_LINES_BY_FILE
-const minLinesByFile = minlines ? minlines : 1
+const maxErrors = maxerrors || MAX_ERRORS
+const maxLinesByFile = maxlines || MAX_LINES_BY_FILE
+const minLinesByFile = minlines || 1
 
 if (ignore) {
-  ignore.forEach((path) => {
+  for (const path of ignore) {
     scanPaths.push(`!${path}`)
-  })
+  }
 }
 scanPaths.push('!node_modules')
 
@@ -71,7 +72,8 @@ globby(scanPaths)
       chalk.inverse.underline('Docs: https://github.com/tiagoporto/limitlines'),
     )
 
-    paths.forEach((file) => {
+    // eslint-disable-next-line promise/always-return
+    for (const file of paths) {
       countLinesInFile(file, (error, numberOfLines) => {
         currentTotalFiles += 1
         totalLines += numberOfLines
@@ -114,6 +116,7 @@ globby(scanPaths)
           }
         }
       })
-    })
+    }
   })
-  .catch((err) => console.error(err))
+  // eslint-disable-next-line unicorn/prefer-top-level-await
+  .catch((error) => console.error(error))
