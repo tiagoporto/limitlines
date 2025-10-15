@@ -50,7 +50,7 @@
     "@commitlint/cli": "^19.6.1",
     "@commitlint/config-conventional": "^19.6.0",
     "@tiagoporto/editor-config": "^2.1.0",
-    "@tiagoporto/eslint-config": "^5.3.0",
+    "@tiagoporto/eslint-config": "^6.0.1",
     "@tiagoporto/prettier-config": "^2.1.0",
     "@tiagoporto/remark-config": "^1.11.0",
     "eslint": "^9.37.0",
